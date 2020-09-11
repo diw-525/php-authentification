@@ -20,6 +20,12 @@
                     <li class="nav-item">
                         <a class="nav-link" href="<?= $baseUrl; ?>/login.php">Connexion</a>
                     </li>
+
+                    <?php if ($user = isLogged()) { ?>
+                        <li class="nav-item">
+                            <span class="nav-link"><?= $user['pseudo']; ?></span>
+                        </li>
+                    <?php } ?>
                 </ul>
             </div>
         </nav>

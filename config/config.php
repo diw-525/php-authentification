@@ -42,4 +42,12 @@ function redirect($url = '/') {
     global $baseUrl;
 
     header('Location: '.$baseUrl.$url);
-} 
+}
+
+/**
+ * Permet de savoir si l'utilisateur est connecté
+ */
+function isLogged() {
+    // return isset($_SESSION['user']) ? $_SESSION['user'] : false;
+    return $_SESSION['user'] ?? false;
+}
