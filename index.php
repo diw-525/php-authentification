@@ -21,3 +21,10 @@
  * - expired_at
  * - user_id
  */
+
+require 'config/config.php';
+require 'views/partials/header.php'; ?>
+
+<?php var_dump($_SESSION); ?>
+
+<?php require 'views/partials/footer.php';

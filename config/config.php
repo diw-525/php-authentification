@@ -1,5 +1,8 @@
 <?php
 
+// On démarre la session
+session_start();
+
 /**
  * Ici, on va stocker des variables pour la configuration
  * On aura également des fonctions et PDO
@@ -31,3 +34,12 @@ $db = new PDO(
 function sanitize($value) {
     return trim(htmlspecialchars($value));
 }
+
+/**
+ * Permet de rediriger vers une url
+ */
+function redirect($url = '/') {
+    global $baseUrl;
+
+    header('Location: '.$baseUrl.$url);
+} 
