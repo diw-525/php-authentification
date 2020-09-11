@@ -46,26 +46,34 @@ if (!empty($_POST)) { // Quand le formulaire est soumis
     }
 
     // Envoyer les données sur la BDD
-    $password = password_hash($password, PASSWORD_DEFAULT);
-
     $query = $db->prepare(
         'INSERT INTO user (email, pseudo, password)
         VALUES (:email, :pseudo, :password)'
     );
 
-    $query->execute([
-        'email' => $email,
-        'pseudo' => $pseudo,
-        'password' => $password,
-    ]);
+    if (empty($errors)) { // Si on a pas d'erreurs, on ajoute le user
+        $password = password_hash($password, PASSWORD_DEFAULT);
 
-    echo "INSERT INTO user (email, pseudo, password)
-          VALUES ($email, $pseudo, $password)";
+        $query->execute([
+            'email' => $email,
+            'pseudo' => $pseudo,
+            'password' => $password,
+        ]);
+
+        echo "INSERT INTO user (email, pseudo, password)
+            VALUES ($email, $pseudo, $password)";
+    }
 }
 
 ?>
 
 <div class="container">
+    <div class="alert alert-danger">
+        <?php foreach ($errors as $field => $error) { ?>
+            <p><?= $field ?>: <?= $error; ?></p>
+        <?php } ?>
+    </div>
+
     <form action="" method="POST">
         <label for="email">Email</label>
         <input type="email" name="email" id="email" class="form-control">
