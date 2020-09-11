@@ -23,7 +23,8 @@ if (!empty($_POST)) { // Traitement du login
     $password = sanitize($_POST['password']);
 
     // - Vérifier que l'email est présent en BDD
-    $query = $db->prepare('SELECT * FROM user WHERE email = :email');
+    $query = $db->prepare('SELECT * FROM user
+    WHERE email = :email OR pseudo = :email');
     $query->execute(['email' => $email]); // ->execute(compact('email'))
     $user = $query->fetch();
 
