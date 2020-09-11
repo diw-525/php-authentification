@@ -46,6 +46,23 @@ if (!empty($_POST)) { // Quand le formulaire est soumis
         $errors['password-4'] = 'Les mots de passe doivent correspondre';
     }
 
+    // @todo:
+    // Il faut vérifier que l'email saisi n'est pas déjà en BDD
+    // Si c'est le cas, on ajoute une erreur dans le tableau
+
+    // @todo2:
+    // Ecouter un événement (keyup) sur l'email
+    // Faire une requête ajax sur un fichier php qui ne renvoie que du json
+    // Ce fichier doit récupérer l'email saisi et vérifier s'il est présent
+    // dans la bdd.
+    // En js (ajax), une fois que la requête est terminée (done), on récupère
+    // la réponse (1 ou 0) qui nous indique si l'email existe.
+    // Grâce à cela, on affiche le bon message en JS :
+    // - "L'email est déjà utilisé"
+    // - "L'email est disponible"
+    // BONUS: Pendant la requête AJAX, on peut afficher une petite icône de
+    // chargement
+
     // Envoyer les données sur la BDD
     $query = $db->prepare(
         'INSERT INTO user (email, pseudo, password)

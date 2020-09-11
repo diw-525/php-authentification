@@ -19,7 +19,7 @@ $now = new DateTime();
 $expiredAt = new DateTime($token['expired_at']);
 
 if ($now > $expiredAt) {
-    // @todo: Idéalement, on supprime le token de la bdd
+    // @todo: Quand le token est expiré, on supprime le token
     http_response_code(404);
     die('404'); // On arrête le script
 }
@@ -29,7 +29,8 @@ if (!empty($_POST)) {
     $password = sanitize($_POST['password']);
     $cfPassword = sanitize($_POST['cfPassword']);
 
-    // @todo: Faire les vérifications
+    // @todo: On fait les vérifications du mot de passe
+    // 8 caractères, égal...
 
     $password = password_hash($password, PASSWORD_DEFAULT);
 
