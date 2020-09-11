@@ -6,6 +6,7 @@ require 'config/config.php';
 require 'views/partials/header.php';
 
 // Traiter le formulaire
+$errors = [];
 
 if (!empty($_POST)) { // Quand le formulaire est soumis
     foreach ($_POST as $field => $value) {
@@ -18,7 +19,31 @@ if (!empty($_POST)) { // Quand le formulaire est soumis
     // $cfPassword = sanitize($_POST['cfPassword']);
 
     // Vérifier le formulaire
-    
+    if (false === filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $errors['email'] = 'Email non valide.';
+    }
+
+    if (empty($pseudo)) {
+        $errors['pseudo'] = 'Pseudo non valide';
+    }
+
+    // Mot de passe doit contenir 8 caractères, 1 chiffre et un caractère
+    // spécial
+    if (!preg_match('/(.){8,}/', $password)) {
+        $errors['password'] = 'Le mot de passe doit faire 8 caractères';
+    }
+
+    if (!preg_match('/[0-9]+/', $password)) {
+        $errors['password'] = 'Le mot de passe doit contenir un chiffre';
+    }
+
+    if (!preg_match('/[^a-zA-Z0-9 ]+/', $password)) {
+        $errors['password'] = 'Le mot de passe doit contenir un caractère spécial';
+    }
+
+    if ($password !== $cfPassword) {
+        $errors['password'] = 'Les mots de passe doivent correspondre';
+    }
 
     // Envoyer les données sur la BDD
     $password = password_hash($password, PASSWORD_DEFAULT);
