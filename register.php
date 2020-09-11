@@ -7,6 +7,7 @@ require 'views/partials/header.php';
 
 // Traiter le formulaire
 $errors = [];
+$email = $pseudo = null; // Initialisation des champs
 
 if (!empty($_POST)) { // Quand le formulaire est soumis
     foreach ($_POST as $field => $value) {
@@ -68,18 +69,21 @@ if (!empty($_POST)) { // Quand le formulaire est soumis
 ?>
 
 <div class="container">
+    <!-- Affichage des erreurs -->
+    <?php if (!empty($errors)) { ?> 
     <div class="alert alert-danger">
         <?php foreach ($errors as $field => $error) { ?>
             <p><?= $field ?>: <?= $error; ?></p>
         <?php } ?>
     </div>
+    <?php } ?>
 
     <form action="" method="POST">
         <label for="email">Email</label>
-        <input type="email" name="email" id="email" class="form-control">
+        <input type="email" name="email" id="email" class="form-control" value="<?= $email; ?>">
 
         <label for="pseudo">Pseudo</label>
-        <input type="text" name="pseudo" id="pseudo" class="form-control">
+        <input type="text" name="pseudo" id="pseudo" class="form-control" value="<?= $pseudo; ?>">
 
         <label for="password">Mot de passe</label>
         <input type="password" name="password" id="password" class="form-control">
