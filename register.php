@@ -31,19 +31,19 @@ if (!empty($_POST)) { // Quand le formulaire est soumis
     // Mot de passe doit contenir 8 caractères, 1 chiffre et un caractère
     // spécial
     if (!preg_match('/(.){8,}/', $password)) {
-        $errors['password'] = 'Le mot de passe doit faire 8 caractères';
+        $errors['password-1'] = 'Le mot de passe doit faire 8 caractères';
     }
 
     if (!preg_match('/[0-9]+/', $password)) {
-        $errors['password'] = 'Le mot de passe doit contenir un chiffre';
+        $errors['password-2'] = 'Le mot de passe doit contenir un chiffre';
     }
 
     if (!preg_match('/[^a-zA-Z0-9 ]+/', $password)) {
-        $errors['password'] = 'Le mot de passe doit contenir un caractère spécial';
+        $errors['password-3'] = 'Le mot de passe doit contenir un caractère spécial';
     }
 
     if ($password !== $cfPassword) {
-        $errors['password'] = 'Les mots de passe doivent correspondre';
+        $errors['password-4'] = 'Les mots de passe doivent correspondre';
     }
 
     // Envoyer les données sur la BDD
@@ -63,6 +63,9 @@ if (!empty($_POST)) { // Quand le formulaire est soumis
 
         echo "INSERT INTO user (email, pseudo, password)
             VALUES ($email, $pseudo, $password)";
+
+        // Redirection
+        header('Location: '.$baseUrl);
     }
 }
 
