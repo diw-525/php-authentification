@@ -34,9 +34,11 @@ if (!empty($_POST)) {
         VALUES(:token, :expired_at, :user_id)');
         $query->execute([
             'token' => $token,
-            'expired_at' => $expiredAt->format('Y-m-d'),
+            'expired_at' => $expiredAt->format('Y-m-d H:i:s'),
             'user_id' => $user['id'],
         ]);
+
+        echo $baseUrl.'/reset.php?token='.$token;
     } else {
         $error = 'Si le compte existe, le token est envoyé.';
     }
